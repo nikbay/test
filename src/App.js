@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 /**
  * All the constant values required for the game to work.
- * By changing these values we can effect the working of the game.
+ * By changing these values we can affect the working of the game.
  */
 const BIRD_HEIGHT = 50;
 const BIRD_WIDTH = 60;
@@ -19,30 +19,29 @@ const OBJ_GAP = 200;
  * @returns None
  */
 function App() {
-
-  //Changing the game values based on the activities done in the game.
+  // Changing the game values based on the activities done in the game.
   const [isStart, setIsStart] = useState(false);
   const [birdpos, setBirdpos] = useState(300);
   const [objHeight, setObjHeight] = useState(0);
   const [objPos, setObjPos] = useState(WALL_WIDTH);
   const [score, setScore] = useState(0);
 
-  //End the game when the player hits the bottom of the screen.
+  // End the game when the player hits the bottom of the screen.
   useEffect(() => {
     let intVal;
     if (isStart && birdpos < WALL_HEIGHT - BIRD_HEIGHT) {
       intVal = setInterval(() => {
         setBirdpos((birdpos) => birdpos + GRAVITY);
       }, 24);
-    }else{
+    } else {
       setIsStart(false);
       setBirdpos(300);
       setScore(0);
     }
-    return () => clearInterval(intVal);
-  });
+    return () => clearInterval(intVal); // Cleanup the interval when the component unmounts
+  }, [isStart, birdpos]); // Add birdpos and isStart to the dependency list
 
-  //Generating the pipes(obstacles) for the game.
+  // Generating the pipes (obstacles) for the game.
   useEffect(() => {
     let objval;
     if (isStart && objPos >= -OBJ_WIDTH) {
@@ -60,18 +59,17 @@ function App() {
     }
   }, [isStart, objPos]);
 
-  //Ends the game of the player hits one of the obstacles.
+  // Ends the game if the player hits one of the obstacles.
   useEffect(() => {
     let topObj = birdpos >= 0 && birdpos < objHeight;
     let bottomObj =
       birdpos <= WALL_HEIGHT &&
-      birdpos >=
-        WALL_HEIGHT - (WALL_HEIGHT - OBJ_GAP - objHeight) - BIRD_HEIGHT;
+      birdpos >= WALL_HEIGHT - (WALL_HEIGHT - OBJ_GAP - objHeight) - BIRD_HEIGHT;
 
     if (
       objPos >= OBJ_WIDTH &&
       objPos <= OBJ_WIDTH + 80 &&
-      (topObj || bottomObj) 
+      (topObj || bottomObj)
     ) {
       setIsStart(false);
       setBirdpos(300);
@@ -81,20 +79,20 @@ function App() {
 
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.code === 'Space') {
+      if (e.code === "Space") {
         setIsStart(true);
         setBirdpos((prev) => prev - 30);
       }
     };
-  
-    window.addEventListener('keypress', handleKeyPress);
-  
-    return () => {
-      window.removeEventListener('keypress', handleKeyPress);
-    };
-  }, [isStart, birdpos]); // Add isStart and birdpos to the dependency list  
 
-  //Handles the player movements.
+    window.addEventListener("keypress", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keypress", handleKeyPress);
+    };
+  }, []); // Empty dependency array to run the effect once
+
+  // Handles the player movements when clicked
   const handler = () => {
     if (!isStart) setIsStart(true);
     else if (birdpos < BIRD_HEIGHT) setBirdpos(0);
@@ -103,17 +101,15 @@ function App() {
 
   const handleKeyDown = (event) => {
     // Check if the pressed key is the spacebar
-    if (event.key === ' ' || event.key === 'Spacebar') {
+    if (event.key === " " || event.key === "Spacebar") {
       // Prevent the default behavior to avoid scrolling the page
       event.preventDefault();
-      
       // Trigger the click event
       handler();
     }
   };
 
   return (
-    //Whole body of the game.
     <Home onClick={handler} onKeyDown={handleKeyDown} tabIndex="0">
       <ScoreShow>Score: {score}</ScoreShow>
       <Background height={WALL_HEIGHT} width={WALL_WIDTH}>
@@ -145,13 +141,13 @@ function App() {
 
 export default App;
 
-//All the stylesheets required for the game.
+// All the stylesheets required for the game.
 const Home = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  flexDirection: 'column';
+  flex-direction: column;
 `;
 
 const Background = styled.div`
