@@ -1,95 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Number Games</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .game-container {
-            text-align: center;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-        }
-        h1 {
-            color: #333;
-        }
-        input[type="number"] {
-            padding: 10px;
-            font-size: 16px;
-            width: 100px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .message {
-            margin-top: 15px;
-            font-size: 18px;
-        }
-    </style>
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-</head>
-<body>
-    <div class="game-container">
-        <h1>Guess the Number!</h1>
-        <p>Guess a number between 1 and 10.</p>
-        <input type="number" id="userGuess" min="1" max="10" placeholder="Enter your guess">
-        <br>
-        <button onclick="checkGuess()">Submit Guess</button>
-        <p class="message" id="message"></p>
-    </div>
-
-    <script>
-        // Initialize game
-        const correctNumber = Math.floor(Math.random() * 10) + 1;
-        let attempts = 0;
-
-        // Function to check the user's guess
-        function checkGuess() {
-            const userGuess = parseInt(document.getElementById('userGuess').value);
-            const messageElement = document.getElementById('message');
-            attempts++;
-
-            if (userGuess === correctNumber) {
-                messageElement.innerHTML = `Congratulations! You guessed it in ${attempts} attempts.`;
-                messageElement.style.color = 'green';
-                Telegram.WebApp.close(); // Close the Web App on correct guess
-            } else if (userGuess < correctNumber) {
-                messageElement.innerHTML = 'Too low! Try again.';
-                messageElement.style.color = 'orange';
-            } else if (userGuess > correctNumber) {
-                messageElement.innerHTML = 'Too high! Try again.';
-                messageElement.style.color = 'orange';
-            }
-        }
-
-        // Optional: Allow closing the Web App when the user clicks the close button
-        Telegram.WebApp.onEvent('mainButtonClicked', function() {
-            Telegram.WebApp.close();
-        });
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hamster Kombat Clone</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
