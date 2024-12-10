@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
  * All the constant values required for the game to work.
  * By changing these values we can affect the working of the game.
  */
-const BIRD_HEIGHT = 50;
-const BIRD_WIDTH = 60;
+const BIRD_HEIGHT = 120;
+const BIRD_WIDTH = 100;
 const WALL_HEIGHT = 600;
 const WALL_WIDTH = 400;
-const GRAVITY = 5;
+const GRAVITY = 4;
 const OBJ_WIDTH = 52;
-const OBJ_SPEED = 5;
-const OBJ_GAP = 200;
+const OBJ_SPEED = 4;
+const OBJ_GAP = 300;
 
 /**
  * This function is the main component which renders all the game objects.
