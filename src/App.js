@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
  * All the constant values required for the game to work.
  * By changing these values we can affect the working of the game.
  */
-const BIRD_HEIGHT = 120;
+const BIRD_HEIGHT = 80;
 const BIRD_WIDTH = 100;
 const WALL_HEIGHT = 600;
 const WALL_WIDTH = 400;
@@ -111,7 +111,6 @@ function App() {
 
   return (
     <Home onClick={handler} onKeyDown={handleKeyDown} tabIndex="0">
-      <ScoreShow>Score: {score}</ScoreShow>
       <Background height={WALL_HEIGHT} width={WALL_WIDTH}>
         {!isStart ? <Startboard>Click To Start</Startboard> : null}
         <Obj
